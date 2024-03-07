@@ -1,6 +1,6 @@
 'use client';
-import { ChatWindow } from './components/ChatWindow';
-
+import {ChatWindow} from '@/components/ChatWindow'
+import {Navbar} from '@/components/Navbar';
 export default function Chat() {
   const InfoCard= (
     <div>
@@ -8,6 +8,8 @@ export default function Chat() {
     </div>
   );
   return (
+    <>
+    <Navbar></Navbar>
     <ChatWindow
     endpoint='api/chat'
     emoji="🤖"
@@ -15,5 +17,6 @@ export default function Chat() {
     placeholder="Hi, I am your friendly AI Assistant Mastishk."
     emptyStateComponent={InfoCard}
     ></ChatWindow>
+    </>
   );
 }

@@ -6,9 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useChat } from "ai/react";
 import React, { useRef, useState, ReactElement ,useEffect} from "react";
 import type { FormEvent } from "react";
-import { Message } from 'ai';
 import { ChatMessageBubble } from './ChatMessgaeBubble';
-import { initialize } from 'next/dist/server/lib/render-server';
 
 export function ChatWindow(props: {
   endpoint: string,
@@ -63,7 +61,7 @@ export function ChatWindow(props: {
 
   return (
     
-    <div className={`flex flex-col items-center p-4 md:p-8 rounded grow overflow-hidden border box-border`}>
+    <div className={`flex flex-col h-[85dvh] items-center p-4 md:p-8 rounded grow overflow-hidden border box-border`}>
       
     <h2 className={`${messages.length > 0 ? "" : "hidden"} text-2xl`}>{emoji} {titleText}</h2>
     {messages.length === 0 ? emptyStateComponent : ""}

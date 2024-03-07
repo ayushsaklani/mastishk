@@ -1,7 +1,6 @@
 import "./globals.css";
 import { Public_Sans } from "next/font/google";
 
-import { Navbar } from "./components/Navbar";
 
 const publicSans = Public_Sans({ subsets: ["latin"] });
 
@@ -22,7 +21,7 @@ export default function RootLayout({
       </head>
       <body className={publicSans.className}>
         <div className="flex flex-col h-[100dvh] p-8 box-border">
-          {/* <Navbar></Navbar> */}
+          
           {children}
         </div>
       </body>
