@@ -80,6 +80,7 @@ export default function Chat() {
                 className="grow mr-8 p-4 rounded bg-white"
                 type="file"
                 name="file"
+                accept=".pdf"
                 onChange={handleOnChange}
                 >
             </input>
