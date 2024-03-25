@@ -2,7 +2,7 @@
 import { ChatWindow } from "@/components/ChatWindow";
 import {Navbar} from '@/components/Navbar';
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import clsx from 'clsx';
 
 
@@ -16,8 +16,7 @@ export default function Chat() {
         Mastishk, Your Friendly AI Assistant! Can Help you with Document Question Answering
         </div>
     );
-    
-
+    const UUID = useRef("");
     const handleOnChange = async(e: React.FormEvent<HTMLInputElement>) => {
         e.preventDefault();
         console.log("In handleOnChange");
@@ -38,10 +37,13 @@ export default function Chat() {
         if (!file) return;
 
         try{
+            const uuid = self.crypto.randomUUID();
+            UUID.current = uuid 
+            
             setIsFileUploading(true);
             const formData = new FormData();
             formData.append("pdf",file)
-
+            formData.append("uuid",uuid);
             const response = await fetch("api/documentqa/ingest/",{
                 method: "POST",
                 body:formData
@@ -106,6 +108,7 @@ export default function Chat() {
             titleText="Mastishk"
             placeholder="Hi, I am your friendly AI Assistant Mastishk. I can help you with questions based on your Documents"
             emptyStateComponent={InfoCard}
+            uuid={UUID.current}
             ></ChatWindow>
         </div>    
 </>

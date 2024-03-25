@@ -22,6 +22,8 @@ const OPENAI_EMB_MODEL= "text-embedding-3-small";
 export async function POST(req: NextRequest){
     try{
         const body = await req.json();
+        const uuid = body.uuid;
+        
         const bmessages = body.messages ?? []
         if (bmessages.length == 0){
             return NextResponse.json({error: "please type your query"},{status:500})
@@ -31,7 +33,7 @@ export async function POST(req: NextRequest){
         const vectorStore = await QdrantVectorStore.fromExistingCollection(
                               new OpenAIEmbeddings({dimensions:1024,modelName:OPENAI_EMB_MODEL,openAIApiKey:OPENAI_KEY}),
                               {
-                                collectionName:"ayush",
+                                collectionName:uuid,
                                 url:QDRANT_URL,
                                 apiKey:QDRANT_API_KEY
                               }); 

@@ -14,11 +14,13 @@ export function ChatWindow(props: {
   placeholder?: string,
   titleText?: string,
   initialMessages?:any,
+  uuid?:string,
   emoji?: string;
 }) {
   const messageContainerRef = useRef<HTMLDivElement | null>(null);
 
-  const { endpoint, emptyStateComponent, placeholder, titleText = "An LLM", emoji, initialMessages } = props;
+  const { endpoint, emptyStateComponent, placeholder, titleText = "An LLM", emoji, initialMessages,uuid } = props;
+  
 
   const [sourcesForMessages, setSourcesForMessages] = useState<Record<string, any>>({});
 
@@ -26,6 +28,7 @@ export function ChatWindow(props: {
   useChat({
       api: endpoint,
       initialMessages:initialMessages,
+      body:{"uuid":uuid},
       onResponse(response) {
         const sourcesHeader = response.headers.get("x-sources");
         const sources = sourcesHeader ? JSON.parse((Buffer.from(sourcesHeader, 'base64')).toString('utf8')) : ["Error"];

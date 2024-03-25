@@ -19,8 +19,8 @@ export async function POST(req:NextRequest) {
     try{
       const body = await req.formData();
       const pdf:File | null = body.get("pdf") as unknown as File;
-      if (pdf === null)  return NextResponse.json({ error: "Uploaded File is null" }, { status: 500 });
-      
+      const uuid:string | null = body.get("uuid") as string;
+      if (pdf === null || uuid ==null)  return NextResponse.json({ error: "Uploaded File is null" }, { status: 500 });
        const loader = new PDFLoader(pdf, {
         parsedItemSeparator: " ",
         splitPages:true
@@ -39,7 +39,7 @@ export async function POST(req:NextRequest) {
       splitDocs,
       new OpenAIEmbeddings({dimensions:1024,modelName:OPENAI_MODEL,openAIApiKey:OPENAI_KEY}),
       {
-        collectionName:"ayush",
+        collectionName:uuid,
         url:QDRANT_URL,
         apiKey:QDRANT_API_KEY
       });
